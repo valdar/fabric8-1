@@ -358,7 +358,7 @@ public class KubernetesConfigAdminBridge implements Watcher<ConfigMap> {
         if( client != null ) {
             FilterWatchListDeletable<ConfigMap, ConfigMapList, Boolean, Watch, Watcher<ConfigMap>> configMapsSelector = client.configMaps().withLabel(pidLabel);
             for( String key : filters.keySet() ){
-                configMapsSelector.withLabelIn(key, filters.get(key).toArray(new String[filters.get(key).size()]));
+                configMapsSelector = configMapsSelector.withLabelIn(key, filters.get(key).toArray(new String[filters.get(key).size()]));
             }
             return configMapsSelector.list();
         } else {
@@ -373,7 +373,7 @@ public class KubernetesConfigAdminBridge implements Watcher<ConfigMap> {
             if (client != null) {
                 FilterWatchListDeletable<ConfigMap, ConfigMapList, Boolean, Watch, Watcher<ConfigMap>> configMapsSelector = client.configMaps().withLabel(pidLabel);
                 for( String key : filters.keySet() ){
-                    configMapsSelector.withLabelIn(key, filters.get(key).toArray(new String[filters.get(key).size()]));
+                    configMapsSelector = configMapsSelector.withLabelIn(key, filters.get(key).toArray(new String[filters.get(key).size()]));
                 }
                 watch = configMapsSelector.watch(this);
             } else {
